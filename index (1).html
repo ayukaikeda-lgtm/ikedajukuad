@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>池田塾アドバンス｜SHO-SAN インターン研修</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#05060E;
+    --bg-1:#0A0E1C;
+    --bg-2:#0E1426;
+    --panel:#121A30cc;
+    --panel-line:#2A3658;
+    --ink:#EAEFFB;
+    --ink-soft:#9AA6C4;
+    --ink-dim:#5E6A8A;
+    --gold:#E6B655;
+    --gold-soft:#E6B65533;
+    --gold-line:#E6B65566;
+    --red:#E7564E;
+    --blue:#6E8BFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Zen Kaku Gothic New",sans-serif;
+    background:var(--bg-0);
+    color:var(--ink);
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .serif{font-family:"Cormorant Garamond",serif}
+
+  /* ===== starfield ===== */
+  #stars,#stars2,#stars3{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  .bggrad{
+    position:fixed;inset:0;z-index:-1;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% -10%, #15203E 0%, transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 110%, #1A1330 0%, transparent 55%),
+      linear-gradient(180deg, var(--bg-0), var(--bg-1) 40%, var(--bg-2));
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+  /* ===== hero ===== */
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;z-index:1;padding:60px 24px}
+  .rocket{font-size:46px;line-height:1;filter:drop-shadow(0 0 18px #E6B65555);animation:float 4s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(-4deg)}}
+  .eyebrow{font-size:13px;letter-spacing:.42em;color:var(--gold);margin:26px 0 30px;font-weight:700}
+  .hero h1{font-size:clamp(48px,9vw,104px);font-weight:900;letter-spacing:.04em;line-height:1.14}
+  .hero h1 .y{color:var(--gold);text-shadow:0 0 40px #E6B65544}
+  .hero .sub{margin-top:30px;font-size:clamp(15px,2.2vw,19px);color:var(--ink-soft);line-height:2}
+  .hero .for{margin-top:34px;font-size:13px;letter-spacing:.28em;color:var(--ink-dim)}
+  .hero .badge{
+    margin-top:26px;display:inline-flex;align-items:center;gap:9px;
+    border:1px solid var(--gold-line);border-radius:100px;padding:8px 20px;
+    font-size:13px;letter-spacing:.18em;color:var(--gold);background:#E6B6550d;
+  }
+  .scroll{position:absolute;bottom:40px;font-size:12px;letter-spacing:.32em;color:var(--ink-dim);animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(8px);opacity:1}}
+
+  /* ===== section frame ===== */
+  section.sec{padding:96px 0;position:relative;z-index:1}
+  .sechead{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+  .secno{
+    width:42px;height:42px;border-radius:50%;border:1.5px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    font-family:"Cormorant Garamond";font-size:20px;font-weight:600;color:var(--gold);
+    box-shadow:0 0 20px #E6B65533;
+  }
+  .seclabel{font-size:13px;letter-spacing:.34em;color:var(--gold);font-weight:700}
+  h2{font-size:clamp(30px,5.5vw,52px);font-weight:900;letter-spacing:.02em;line-height:1.2;margin-bottom:26px}
+  h2 .y{color:var(--gold)}
+  .lead{font-size:clamp(15px,2.1vw,18px);color:var(--ink-soft);max-width:660px;margin-bottom:40px}
+
+  /* ===== goal plate ===== */
+  .goalplate{
+    text-align:center;border:1px solid var(--gold-line);border-radius:20px;
+    padding:44px 36px;background:
+      radial-gradient(ellipse at 50% 0%, #E6B6551a, transparent 70%), var(--panel);
+    backdrop-filter:blur(6px);box-shadow:0 30px 80px -40px #E6B65522, 0 0 0 1px #ffffff08 inset;
+  }
+  .goalplate .lab{font-size:12px;letter-spacing:.36em;color:var(--gold);margin-bottom:18px}
+  .goalplate p{font-size:clamp(19px,3vw,27px);font-weight:700;line-height:1.7}
+  .goalplate .y{color:var(--gold)}
+
+  .meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-top:30px;font-size:14px;color:var(--ink-soft);letter-spacing:.08em}
+  .meta b{color:var(--ink);font-weight:700}
+
+  /* ===== program timeline ===== */
+  .tl{position:relative;margin-top:8px}
+  .tl::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--gold),transparent)}
+  .tlrow{display:grid;grid-template-columns:40px 1fr;gap:24px;padding:18px 0;position:relative}
+  .tldot{width:40px;height:40px;border-radius:50%;background:var(--bg-1);border:1.5px solid var(--gold-line);display:flex;align-items:center;justify-content:center;z-index:1}
+  .tldot span{font-family:"Cormorant Garamond";font-size:15px;font-weight:600;color:var(--gold)}
+  .tlrow .t{font-size:12px;letter-spacing:.2em;color:var(--ink-dim);margin-bottom:4px}
+  .tlrow h3{font-size:19px;font-weight:700;margin-bottom:8px}
+  .tlrow ul{list-style:none}
+  .tlrow li{font-size:15px;color:var(--ink-soft);padding-left:18px;position:relative;margin-bottom:5px}
+  .tlrow li::before{content:"";position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+
+  /* ===== role cards ===== */
+  .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:10px 0 18px}
+  .role{
+    border:1px solid var(--panel-line);border-radius:16px;padding:24px 18px;text-align:center;
+    background:var(--panel);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
+  }
+  .role .n{font-family:"Cormorant Garamond";font-size:40px;font-weight:600;color:var(--gold);line-height:.9}
+  .role .ja{font-size:17px;font-weight:700;margin-top:8px}
+  .role .d{font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.6}
+  .role.opt{border-style:dashed;opacity:.82}
+  .role:hover{transform:translateY(-7px);border-color:var(--gold-line);box-shadow:0 24px 44px -24px #E6B65533}
+  .roles-note{font-size:14px;color:var(--ink-soft);margin-bottom:18px}
+
+  /* ===== step cards ===== */
+  .step{
+    border:1px solid var(--panel-line);border-radius:18px;background:var(--panel);
+    margin-bottom:18px;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;
+  }
+  .step.key{border-color:var(--gold-line);box-shadow:0 0 50px -28px #E6B65566}
+  .step:hover{transform:translateY(-6px);box-shadow:0 28px 56px -28px #E6B65544}
+  .step .bar{display:flex;align-items:center;gap:16px;padding:22px 26px 6px}
+  .step .sn{width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#E6B655,#C9952F);color:#1A1206;font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .step .stt{font-size:19px;font-weight:700;flex:1}
+  .step .min{font-family:"Cormorant Garamond";font-size:22px;font-weight:600;color:var(--gold)}
+  .step .bd{padding:10px 26px 26px 86px}
+  .step .bd li{list-style:none;font-size:15px;color:var(--ink-soft);padding-left:18px;position:relative;margin-bottom:7px}
+  .step .bd li::before{content:"";position:absolute;left:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+  .ex{margin-top:14px;padding:13px 18px;background:#0B1124;border:1px solid var(--panel-line);border-left:3px solid var(--gold);border-radius:8px;font-size:14px;color:var(--ink);line-height:1.8}
+  .ex .q{color:var(--gold);font-weight:700;margin-right:6px}
+  .seal{margin-top:14px;display:inline-flex;align-items:center;gap:9px;border:1px solid var(--gold-line);border-radius:100px;padding:8px 18px;font-size:13.5px;color:var(--gold);background:#E6B6550d}
+  .seal .mark{font-weight:700}
+  @media(max-width:560px){.step .bd{padding-left:26px}}
+
+  /* ===== reference ===== */
+  .refs{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:680px){.refs{grid-template-columns:1fr}}
+  .ref{border:1px solid var(--panel-line);border-radius:18px;background:var(--panel);overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+  .ref:hover{transform:translateY(-5px);box-shadow:0 28px 56px -30px #E6B65533}
+  .ref .rh{text-align:center;padding:22px 0 18px;border-bottom:1px solid var(--panel-line);background:#E6B6550a}
+  .ref .rh .en{font-family:"Cormorant Garamond";font-size:24px;font-weight:600;letter-spacing:.14em;color:var(--gold)}
+  .ref .rh .ja{display:block;font-size:12px;color:var(--ink-soft);letter-spacing:.26em;margin-top:6px}
+  .ref ol{list-style:none;counter-reset:r;padding:12px 0}
+  .ref li{counter-increment:r;display:flex;gap:14px;align-items:baseline;padding:9px 24px;font-size:14.5px;color:var(--ink-soft)}
+  .ref li::before{content:counter(r,decimal-leading-zero);font-family:"Cormorant Garamond";font-size:13px;color:var(--gold);flex-shrink:0;width:22px}
+
+  /* ===== outro ===== */
+  .outro{text-align:center;padding:120px 24px 90px;position:relative;z-index:1}
+  .outro .rocket{font-size:40px}
+  .outro h2{font-size:clamp(28px,5vw,46px);margin:24px 0 30px;line-height:1.5}
+  .outro .pills{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:26px}
+  .pill{border:1px solid var(--gold-line);border-radius:100px;padding:9px 20px;font-size:14px;color:var(--gold);background:#E6B6550d}
+  .outro .note{font-size:14px;color:var(--ink-soft)}
+  footer{text-align:center;padding:30px;font-size:12px;color:var(--ink-dim);letter-spacing:.12em;position:relative;z-index:1;border-top:1px solid #ffffff0a}
+
+  /* ===== reveal ===== */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.rocket,.scroll{animation:none}}
+</style>
+</head>
+<body>
+<div class="bggrad"></div>
+<canvas id="stars"></canvas>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="rocket">🚀</div>
+  <div class="eyebrow">SHO-SAN INTERN TRAINING</div>
+  <h1>池田塾<br><span class="y">ADVANCE</span></h1>
+  <p class="sub">十箇条を、現場でどれだけ体現できたか。<br>その先にあるクレドへ——次のステージの打ち上げ。</p>
+  <div class="badge">FOR ALUMNI — 池田塾を修了したあなたへ</div>
+  <div class="scroll">SCROLL ↓</div>
+</header>
+
+<!-- ===== 0 GOAL ===== -->
+<section class="sec wrap">
+  <div class="sechead reveal"><div class="secno">0</div><div class="seclabel">SESSION GOAL</div></div>
+  <h2 class="reveal">この日の<span class="y">ゴール</span></h2>
+  <div class="goalplate reveal">
+    <div class="lab">GOAL</div>
+    <p>入社〜現在までで、<span class="y">池田十箇条</span>をどれだけ体現できたかを部署を越えて語り、<br>その先にある<span class="y">クレド（考え方）</span>までつなげて考える。</p>
+  </div>
+  <div class="meta reveal">
+    <span><b>所要</b> 60分</span>
+    <span><b>形式</b> グループワーク＋発表</span>
+    <span><b>対象</b> 全部署インターン</span>
+    <span><b>進行</b> 池田</span>
+  </div>
+</section>
+
+<!-- ===== 1 PROGRAM ===== -->
+<section class="sec wrap">
+  <div class="sechead reveal"><div class="secno">1</div><div class="seclabel">PROGRAM</div></div>
+  <h2 class="reveal">当日の<span class="y">流れ</span></h2>
+  <div class="tl">
+    <div class="tlrow reveal">
+      <div class="tldot"><span>Ⅰ</span></div>
+      <div><div class="t">OPENING ・ 10–15分</div><h3>冒頭：振り返り（池田）</h3>
+        <ul>
+          <li>クレドと池田十箇条の振り返り</li>
+          <li>ゴール共有：入社〜現在まででどれだけ体現できたかを、お互いに語る</li>
+          <li>枠組み：十箇条＝現場の動き方／クレド＝その根っこにある考え方</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tlrow reveal">
+      <div class="tldot"><span>Ⅱ</span></div>
+      <div><div class="t">GROUP WORK ・ 25分</div><h3>グループワーク</h3>
+        <ul>
+          <li>役割を決めて、自己紹介 → 十箇条 → クレドへ橋渡し</li>
+          <li>詳細は SECTION 2 へ</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tlrow reveal">
+      <div class="tldot"><span>Ⅲ</span></div>
+      <div><div class="t">PRESENTATION ・ 15–20分</div><h3>発表</h3>
+        <ul>
+          <li>各グループの発表者が代表エピソードを発表（一組二分目安）</li>
+          <li>固定のお題：一番難しいと決まった項目とその理由／つながるクレド</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tlrow reveal">
+      <div class="tldot"><span>Ⅳ</span></div>
+      <div><div class="t">CLOSING ・ 数分</div><h3>クロージング（池田）</h3>
+        <ul><li>全体総括、次の半年への期待</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2 GROUP WORK ===== -->
+<section class="sec wrap">
+  <div class="sechead reveal"><div class="secno">2</div><div class="seclabel">GROUP WORK</div></div>
+  <h2 class="reveal">グループ<span class="y">ワーク</span></h2>
+  <p class="lead reveal">はじめに、今日時点で誕生日が近い順に役割を決めましょう。</p>
+
+  <div class="roles reveal">
+    <div class="role"><div class="n serif">1</div><div class="ja">ファシリ</div><div class="d">お題を読み上げ、順に振る</div></div>
+    <div class="role"><div class="n serif">2</div><div class="ja">書記</div><div class="d">メモ・発表ネタを拾う</div></div>
+    <div class="role"><div class="n serif">3</div><div class="ja">発表者</div><div class="d">全体の場で代表して話す</div></div>
+    <div class="role opt"><div class="n serif">4</div><div class="ja">タイムキーパー</div><div class="d">五名以上のとき</div></div>
+  </div>
+
+  <div class="step reveal">
+    <div class="bar"><span class="sn">1</span><span class="stt">自己紹介</span><span class="min">5′</span></div>
+    <div class="bd"><ul><li>名前・部署・あだ名・最近ハマってること</li></ul></div>
+  </div>
+
+  <div class="step key reveal">
+    <div class="bar"><span class="sn">2</span><span class="stt">十箇条で「難しい」トップ3を決めよ</span><span class="min">8′</span></div>
+    <div class="bd">
+      <ul>
+        <li>各自三十秒で「自分的に難しいトップ3」を書く</li>
+        <li>持ち寄って、グループで一つのランキングに合意</li>
+        <li>なぜ難しい？ 業務の具体エピソードで語る</li>
+      </ul>
+      <div class="ex"><span class="q">例</span>「レス最短」が難しい → なぜ？ → ○○だから</div>
+    </div>
+  </div>
+
+  <div class="step key reveal">
+    <div class="bar"><span class="sn">3</span><span class="stt">その難しさ、どのクレドにつながる？</span><span class="min">7′</span></div>
+    <div class="bd">
+      <ul>
+        <li>トップ3から「一番難しい一つ」を選ぶ</li>
+        <li>現場の「できてない」を、クレドの言葉に翻訳する</li>
+      </ul>
+      <div class="ex"><span class="q">例</span>レスが遅い ＝ クレド05「責任は奪え、答えも奪え」ができてない</div>
+      <div class="seal"><span class="mark">心得</span>クレドの繋げ方に正解はナシ。「自分はこう思う」でOK</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3 REFERENCE ===== -->
+<section class="sec wrap">
+  <div class="sechead reveal"><div class="secno">3</div><div class="seclabel">REFERENCE</div></div>
+  <h2 class="reveal">十箇条と<span class="y">行動指針</span></h2>
+  <div class="refs">
+    <div class="ref reveal">
+      <div class="rh"><span class="en serif">IKEDA Ⅹ</span><span class="ja">池田十箇条</span></div>
+      <ol>
+        <li>レスは最短【意思表示も合わせてする】</li>
+        <li>タスクの優先度を精査する</li>
+        <li>自分の前後の仕事に思いをはせる</li>
+        <li>相手の立場を慮る</li>
+        <li>ボールの持ち主を常に確認する</li>
+        <li>意図・目的を理解する</li>
+        <li>まずは一歩踏み出す</li>
+        <li>出来ない理由ではなく、出来る方法を考える</li>
+        <li>周囲からの期待を自覚する</li>
+        <li>周りに興味をもつ</li>
+      </ol>
+    </div>
+    <div class="ref reveal">
+      <div class="rh"><span class="en serif">CREDO Ⅶ</span><span class="ja">行動指針</span></div>
+      <ol>
+        <li>まず、“賞賛”される人であれ。</li>
+        <li>強みで暴れろ。</li>
+        <li>迷ったら、飛べ。</li>
+        <li>私事（仕事）を楽しめ。</li>
+        <li>責任は奪え、答えも奪え。</li>
+        <li>議論は全開で、決まったら一丸で。</li>
+        <li>独りを捨て、仲間を選べ。</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OUTRO ===== -->
+<section class="outro">
+  <div class="rocket">🚀</div>
+  <h2 class="reveal">現場の動きを、<br><span class="y">考え方</span>の言葉で語ろう。</h2>
+  <div class="pills reveal">
+    <span class="pill">入社〜現在の歩み</span>
+    <span class="pill">部署を越えた対話</span>
+    <span class="pill">次のステージへ</span>
+  </div>
+  <p class="note reveal">池田塾アドバンス ── ここからもう一段、上昇していこう。</p>
+</section>
+
+<footer>© SHO-SAN inc. — 池田塾アドバンス / Intern Training</footer>
+
+<script>
+// starfield
+(function(){
+  var c=document.getElementById('stars'),x=c.getContext('2d'),s=[];
+  function rz(){c.width=innerWidth;c.height=innerHeight}
+  rz();addEventListener('resize',rz);
+  for(var i=0;i<150;i++){s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.3+.2,a:Math.random(),sp:Math.random()*.02+.004})}
+  function draw(){
+    x.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<s.length;i++){var p=s[i];p.a+=p.sp;var al=.3+Math.abs(Math.sin(p.a))*.7;
+      x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(230,232,245,'+al+')';x.fill();}
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+// reveal
+(function(){
+  var items=[].slice.call(document.querySelectorAll('.reveal'));
+  if(!('IntersectionObserver'in window)){items.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){var el=e.target,sib=[].slice.call(el.parentNode.querySelectorAll(':scope>.reveal')),i=sib.indexOf(el);
+      el.style.transitionDelay=(i>0?i*80:0)+'ms';el.classList.add('in');io.unobserve(el);}
+  })},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  items.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
